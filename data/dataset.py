@@ -577,10 +577,15 @@ def image_label(txt_root, image_list, img_name, index,
         h, w, _ = im.shape
         #txt_fn = im_name.replace(im_name.split('.')[1], 'txt')
         #print(txt_fn)
-        if os.path.exists(txt_root + "/"+im_name[0:-4] + '.txt'):
-            txt_fn = im_name[0:-4] + '.txt'
-        elif os.path.exists(txt_root + "/"+im_name[0:-5] + '.txt'):
-            txt_fn = im_name[0:-5] + '.txt'
+        # if os.path.exists(txt_root + "/"+im_name[0:-4] + '.txt'):
+        #     txt_fn = im_name[0:-4] + '.txt'
+        # elif os.path.exists(txt_root + "/"+im_name[0:-5] + '.txt'):
+        #     txt_fn = im_name[0:-5] + '.txt'
+
+        if os.path.exists(txt_root + "/gt_"+im_name[0:-4] + '.txt'):
+            txt_fn = "gt_"+im_name[0:-4] + '.txt'
+        elif os.path.exists(txt_root + "/gt_"+im_name[0:-5] + '.txt'):
+            txt_fn = "gt_"+im_name[0:-5] + '.txt'
         txt_fn = os.path.join(txt_root, txt_fn)
 
         text_polys, text_tags = load_annoataion(txt_fn)
