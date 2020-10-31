@@ -17,6 +17,8 @@ import time
 import cv2
 
 
+os.environ["CUDA_VISIBLE_DEVICES"] = '3,4'
+
 def train(epochs, model, trainloader, crit, optimizer,scheduler, save_step, weight_decay):
     #add(xyf)
     #print(model)
@@ -80,14 +82,14 @@ def main(**kwargs):
     train_txt = root_path + 'ch4_training_localization_transcription_gt'
     trainset = ImageDataSet(train_img, train_txt)
     trainloader = DataLoader(
-        trainset, batch_size=2, shuffle=True, collate_fn=collate_fn, num_workers=1)
+        trainset, batch_size=16, shuffle=True, collate_fn=collate_fn, num_workers=8)
 
     crit = LossFunc()
     weight_decay = 0
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
     scheduler = lr_scheduler.StepLR(optimizer, step_size=10000,gamma=0.94)
 
-    train(epochs=opt.epoch_num, model=model, trainloader=trainloader,
+    train(epochs=500, model=model, trainloader=trainloader,
           crit=crit, optimizer=optimizer, scheduler=scheduler,
           save_step=5, weight_decay=weight_decay)
 
